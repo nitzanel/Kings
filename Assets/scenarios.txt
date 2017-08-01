@@ -1,0 +1,89 @@
+example:
+	learn deeply about a char.
+	unravel/dodge assassination attempt
+	bastard son
+	mysterious witch
+	discover a plot
+	invited to a duel
+
+Scenarios are mega events that happen directly when a char crates them, or when the game randomly creates one.
+you pick how you advance via one of 4 or 3 options. char traits and desires greatly influence which scenario will happen.
+
+Scenario:
+	name:
+
+	long description:
+
+	image:
+
+	branching option:
+		clicking on one will keep the name but change the description and image.
+		at the end it will have a final option that will close the scenario and apply changes to the game.
+
+
+All scenarios:
+	Natural:
+	bastard son
+	mysterious witch
+
+	Low loyalty:
+		assassination attempt
+		a plot in the capital
+		
+	City mayor:
+
+
+	Spymaster:
+
+
+	General:
+
+
+	Master of coin:
+
+
+
+	Traits:
+		General (each class):
+			revealing clues (MANY)
+			convince a char to help
+			confront a char to fully know him/ buff his stats
+			confront a disloyal char
+
+		Coward:
+			scaring all of the court (gives SA)
+
+		Brave:
+			invites you to a duel(gives SA)
+			
+		Lazy:
+			finds a treaky way to do less work with more results (gives SA)
+
+		Diligent:
+			learn from the diligent (and get SA)
+
+		Cruel:
+			a way to truly find out about a char (SA)
+
+		Kind:
+			charming a character/city (SA)
+
+		Cunning:
+			spread a rumour about someone to make him dead without drawbacks (SA)
+
+		Honest:
+			tells you about a plot against you(SA?)
+
+		Greedy:
+			?
+
+		Modest:
+			?
+
+		Psychopath:
+			?
+
+	Desires:
+
+	HelpThePoeple, KeepThePeace, DestroyCorruption, LoyaltyToTheCrown, NothingAtAll, Power, SeeTheWorldBurn,
+     GetRich

@@ -1,0 +1,12 @@
+﻿Kill|Kills target, reduces court loyalty.|people|20|Kill|1
+Imprison|Imprison target, reduces court loyalty.|people|10|Imprison|1
+Spy|Spy on target, may be cought.|people|10|Spy|2
+Raise Taxes|Raises the taxes in a city.|city|5|RaiseTaxes|3
+Bribe|Bribes a person. Increases loyalty.|people|3|Bribe|5
+Increase Charisma|Increases targets charisma.|people|5|IncreaseCharisma|3
+Increase Talent|Inceases targets talent.|people|5|IncreaseTalent|3
+Attack City|Attacks a city.|city|8|AttackCity|1
+Call to Arms|Raises Army from city.|city|5|CallToArms|1
+Recruit Army|Increase army in city.|city|5|RecruitArmy|1
+Increase City Loyalty|Increases loyalty in city.|city|5|IncreaseCityLoyalty|5
+Increase City Population|Increases the population in a city.|city|5|IncreaseCityPopulation|3

@@ -1,0 +1,86 @@
+name|description|target|cost|function
+(target = people/city/castle/event/all)
+
+Actions example:
+	imprison
+	kill 
+	spy
+	raise taxes
+
+Three types of action cards:
+	Actions on people
+	Actions on cities 
+	Special Actions (Bought/scenarios)
+
+note:
+	all actions cost influence(action points/mana)
+
+
+
+
+Actions Cards:
+
+	Name:
+		Kill
+	Action:
+		Kill target
+	image:
+
+	Price:
+		4 mana
+	Target
+		People
+	Effects:
+		Kills target, reduces loyalty
+	Lore:
+		SUPER MEGA KILL BUTTON
+
+
+
+
+All actions:
+
+	On People:
+
+		Kill
+		Imprison
+
+		Spy
+		Guess Desire
+		
+		Bribe
+		Increase loyalty
+
+		Increase Charisma
+		Increase Talent
+
+	
+	On Cities:
+
+		Buff Taxes
+
+		attack city // call home
+		call to arms // take army from city to main army
+		recruit army // increase army in city
+
+		Increase Loyalty
+		Increase Population
+
+
+
+*Mayors act randomly based on random action cards, stats, and traits.
+** When an action card is used on a city, it forces the action on the city for the turn.
+
+	Special Action cards:
+
+		Buy Armies
+
+		Invade cities
+
+		Replace Court (mass execution)
+
+		Force true desire reveal
+									(Super Spy)
+		Force Traits Reveal
+
+

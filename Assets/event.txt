@@ -1,0 +1,45 @@
+title|description|storyline|index|shortName|function1|function2|function3|...
+
+example:
+	major event- open rebellion
+	major event- char died in accident
+
+There are major and minor events
+			canceled	///minor events- they happen immidietly after a char created them, they happen all the time.
+	major events- way more dangerous, sometimes created by chars, sometimes by chance.
+		in order to draw one, a bad char will spend his action "drawing" an event.
+
+Event:
+	name:
+
+	description:
+
+	image:
+
+	effects:
+
+	created by:
+		unknown
+	investigate:
+		action slot
+
+
+All events:
+	major:
+		rebellion
+		invasion
+		natural disaster
+		reduced loyalty of court
+		character dying in "accident"
+		character secret spilled out
+		character(s) going to hideout
+
+				canceled	///minor:
+							taxes- success/major success/nothing/fail/epic fail
+							troops- just like taxes
+							loyalty- ...
+							population- ...
+							spymaster- success/major success/nothing/lie
+							general- success/major success/nothing/fail/epic fail
+							master of coin- success/major success/nothing/fail/epic fail
+							regular action results (bribing, killing, collecting money)
