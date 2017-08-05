@@ -9,8 +9,7 @@ public class castleButton : MonoBehaviour
     void Start()
     {
         panel = GameObject.Find("CastlePanel").GetComponent<RectTransform>();
-		panel.gameObject.SetActive(false);
-
+        panel.gameObject.SetActive(false);
     }
 
     public void OpenPanel()

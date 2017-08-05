@@ -692,11 +692,16 @@ public class Realm
 		/*
 		 * Accident event
 		 */
-		bool startState = castlePanel.gameObject.activeSelf;
+		Debug.Log ("Entered accident");
+		bool startState = false;
+		castlePanel = GameObject.Find ("GameManager").GetComponent<GameManager> ().castlePanel.GetComponent<RectTransform>();
+		if (castlePanel.gameObject)
+			startState = castlePanel.gameObject.activeSelf;
 		castlePanel.gameObject.SetActive (true);
 		//Transform castle = GameObject.Find("CastlePanel").transform;
-		GameObject.Find ("GameManager").GetComponent<GameManager> ().updateCourt();
-		card[] court = GameObject.Find ("GameManager").GetComponent<GameManager> ().court;
+		Debug.Log("looking for gamemanager");
+		card[] court = GameObject.Find ("GameManager").GetComponent<GameManager> ().updateCourt();
+		Debug.Log ("got court");
 		List<int> targets = new List<int> ();
 		for (int i = 0; i < 3; i++)
 		{
@@ -713,10 +718,11 @@ public class Realm
 		// if anyone in the court alive, slay!
 		if (targets.Count > 0)
 		{
-				int targetIndex = targets[Random.Range (0, targets.Count)];
-				Kill (court [targetIndex].charPanel.gameObject);
+			int targetIndex = targets[Random.Range (0, targets.Count)];
+			Kill (court [targetIndex].charPanel.gameObject);
+			Debug.Log ("Sent to kill target");
 		}
-			else 
+		else 
 		{
 			//no one to 'accidently' kill
 		}
@@ -788,14 +794,15 @@ public class Realm
 	public void FeastFirethecoinmaster ()
 	{
 		gold /= 2;
+		castlePanel = GameObject.Find ("GameManager").GetComponent<GameManager> ().castlePanel.GetComponent<RectTransform> ();
 		bool state = castlePanel.gameObject.activeSelf;
 		castlePanel.gameObject.SetActive (true);
 		// update the court variable of the game manager. ( get newest court)
-		GameObject.Find ("GameManager").GetComponent<GameManager> ().updateCourt ();
-		card[] court = GameObject.Find("GameManager").GetComponent<GameManager>().court;
+		card[] court = GameObject.Find ("GameManager").GetComponent<GameManager> ().updateCourt ();
 		// check if there is a coin master
 		if (court[1])
 		{	
+			Debug.Log ("Found coin master");
 			Kill (court[1].charPanel.gameObject);
 		}
 		else

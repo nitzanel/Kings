@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 	public GameObject[] cityPanels;
     public int cityCount = 3;
 
-    GameObject castlePanel;
+	public GameObject castlePanel;
 
 	/// <summary>
 	/// The drop zones in cities
@@ -76,8 +76,8 @@ public class GameManager : MonoBehaviour
 		StartCoroutine (startGame());
 
         pickUpZone = GameObject.Find("PickUpZone").transform;
-		RectTransform castlePanel = GameObject.Find ("Castle").transform.GetChild (0).GetComponent<castleButton> ().panel;
-		realm.castlePanel = castlePanel;
+		RectTransform castlePanelTmp = GameObject.Find ("Castle").transform.GetChild (0).GetComponent<castleButton> ().panel;
+		realm.castlePanel = castlePanelTmp;
 	}
 
     void Update ()
@@ -125,6 +125,7 @@ public class GameManager : MonoBehaviour
 	// updates the court and returns it
 	public card[] updateCourt()
 	{
+		Debug.Log ("updating court");
 		try{court [0] = castlePanel.transform.Find("GeneralDropZone").GetComponentInChildren<card> ();} 
 		catch{court [0] = null;}
 		try{court [1] = castlePanel.transform.Find("MasterOfCoinDropZone").GetComponentInChildren<card>();}
@@ -133,6 +134,7 @@ public class GameManager : MonoBehaviour
 		catch{
 			court [2] = null;
 		}
+		Debug.Log ("Finished updating court");
 
 		return court;
 	}
