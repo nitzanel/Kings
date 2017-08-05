@@ -21,9 +21,9 @@ public class Realm
 	// array of cities in the realm.
 	public City[] cities = new City[NumberOfCities];
 	// how much gold does the king have.
-	public int gold;
+	public long  gold;
 	// how much armies does the king have in the realm.
-	int loyalArmy;
+	long loyalArmy;
 	// how loyal the realm is to the king.
 	int realmLoyalty;
     public int actionPoints; //used to play action cards
@@ -775,14 +775,14 @@ public class Realm
 			gold += 99999;
 		else //or nothing
 			gold -= 200;
-		gold = Mathf.Max (gold, 0);
+		gold = (long)(Mathf.Max (gold, 0));
 
 	}
 
 	public void BadLuckMournhim()
 	{
 		gold -= 200;
-		gold = Mathf.Max (gold, 0);
+		gold = (long)(Mathf.Max (gold, 0));
 		realmLoyalty += 5;
 	}
 
@@ -867,7 +867,6 @@ public class Realm
 	public void RebellionRumorsLetsParty()
 	{
 		gold += 10000;
-		realmLoyalty = 100;
 		loyalArmy += 1000;
 		Debug.Log ("LetsParty!");
 	}
@@ -916,7 +915,7 @@ public class Realm
 	public void BadLuck()
 	{
 		gold -= 200;
-		gold = Mathf.Max (0, gold);
+		gold = (long)(Mathf.Max (0, gold));
 		Debug.Log ("So Sad");
 	}
 	/*
@@ -957,7 +956,7 @@ public class Realm
 				loyalArmy -= target.army;
 				target.army = target.army - (int) (loyalArmy * 0.01f * general.getStats(true).talent ) ;
 			}
-			loyalArmy = Mathf.Max (0, loyalArmy);
+			loyalArmy =(long) (Mathf.Max (0, loyalArmy));
 		}
 		else
 		{

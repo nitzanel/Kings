@@ -54,6 +54,7 @@ GameObject:
   - component: {fileID: 224182915852692818}
   - component: {fileID: 222368193618818032}
   - component: {fileID: 114847930100851290}
+  - component: {fileID: 114788460501080534}
   m_Layer: 5
   m_Name: EventPanel
   m_TagString: Untagged
@@ -144,6 +145,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Amazing description
+--- !u!114 &114788460501080534
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1254054847350142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b81b82e191f9024493b5b4f62d57cf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114814881023174520
 MonoBehaviour:
   m_ObjectHideFlags: 1
