@@ -29,14 +29,32 @@ public class EventCreator : MonoBehaviour
                 functions.Add(entries[i]);
             }
             Event newEvent = new Event(entries[titleIndex], entries[descriptionIndex], entries[storylineIndex], int.Parse(entries[indexIndex]), entries[shortNameIndex], functions);
-            if (events.Count <= newEvent.index)
-            {
-                events.Add(newEvent.index, new Dictionary<string, Event>());
-                //Debug.Log(newEvent.title + "    --->    " + "[" + newEvent.index + "][" + )
-            }
+			// put each event in his indexed position dictionary 
+			if (events.Count <= newEvent.index)
+			{
+				events.Add (newEvent.index, new Dictionary<string, Event> ());
+				//Debug.Log(newEvent.title + "    --->    " + "[" + newEvent.index + "][" + )
+			} 
             events[newEvent.index].Add(newEvent.storyline, newEvent);
         }
+		//printAllEvents ();
+
     }
+
+	private void printAllEvents()
+	{
+		/* 
+		 * see where every event goes (helps for debug)
+		*/
+		foreach (var a in events)
+		{
+			Debug.Log ("in key: " + a.Key.ToString ());
+			foreach (var b in a.Value)
+			{
+				Debug.Log (b.ToString ());
+			}
+		}
+	}
 
     public Event GetEvent()
     {
@@ -49,14 +67,15 @@ public class EventCreator : MonoBehaviour
         return events[index][storyline];
     }
 
-    //is string in string[]?
-    public bool IsIn(List<string> arr, string str)
-    {
-        bool retVal = false;
-        for (int i = 0; i < arr.Count; i++)
-        {
-            if (str == arr[i]) retVal = true;
-        }
-        return retVal;
-    }
+	//is string in string[]?
+	public bool IsIn(List<string> arr, string str)
+	{
+		bool retVal = false;
+		for (int i = 0; i < arr.Count; i++)
+		{
+			if (str == arr[i]) retVal = true;
+		}
+		return retVal;
+	}
+		
 }

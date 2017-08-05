@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
 
     GameObject castlePanel;
 
+	/// <summary>
+	/// The drop zones in cities
+	/// </summary>
 	RectTransform[] dropZones;
 
     Transform pickUpZone;
@@ -26,6 +29,11 @@ public class GameManager : MonoBehaviour
     public Transform eventPanelPrefab;
     public Transform eventButtonPrefab;
 
+	/// <summary>
+	/// The court HOLDS THE WRONG FUCKING THING
+	/// IT NEEDS THE CHARACTER PANEL
+	/// NOT THE FUCKING CARD
+	/// </summary>
 	public card[] court = new card[3];
 
 	void Awake () 
@@ -81,10 +89,9 @@ public class GameManager : MonoBehaviour
 			realm.SetCitiesCards (cityPanels);
 		}
 	}
+
 	public GameObject general;
-
 	public GameObject masterOfCoin;
-
 	public GameObject spyMaster;
 
 	IEnumerator startGame()
@@ -97,9 +104,10 @@ public class GameManager : MonoBehaviour
 			card.transform.SetParent (dropZones [i].transform);
 		}
 
-         general = Instantiate(cardPrefab, GameObject.Find("Canvas").transform);
-         masterOfCoin = Instantiate(cardPrefab, GameObject.Find("Canvas").transform);
-         spyMaster = Instantiate(cardPrefab, GameObject.Find("Canvas").transform);
+        general = Instantiate(cardPrefab, GameObject.Find("Canvas").transform);
+        masterOfCoin = Instantiate(cardPrefab, GameObject.Find("Canvas").transform);
+		spyMaster = Instantiate(cardPrefab, GameObject.Find("Canvas").transform);
+
         yield return new WaitForSeconds(0.2f);
         castlePanel.transform.Find("GeneralDropZone").GetComponent<drop>().CardEnter(general.GetComponent<card>());
         general.transform.SetParent(castlePanel.transform.Find("GeneralDropZone"));
@@ -114,27 +122,29 @@ public class GameManager : MonoBehaviour
         realm.UpdateUI();
 	}
 
-	public void updateCourt()
+	// updates the court and returns it
+	public card[] updateCourt()
 	{
-		try{court [0] = general.GetComponent<card> ();} 
+		try{court [0] = castlePanel.transform.Find("GeneralDropZone").GetComponentInChildren<card> ();} 
 		catch{court [0] = null;}
-		try{court [1] = masterOfCoin.GetComponent<card> ();}
+		try{court [1] = castlePanel.transform.Find("MasterOfCoinDropZone").GetComponentInChildren<card>();}
 		catch{court [1] = null;}
-		try{court [2] = spyMaster.GetComponent<card> ();}
+		try{court [2] = castlePanel.transform.Find("SpyMasterDropZone").GetComponentInChildren<card> ();}
 		catch{
 			court [2] = null;
 		}
 
+		return court;
 	}
 
     public void EndTurn()
     {
         GameObject.Find("EndTurn").GetComponent<Animator>().SetTrigger("Rotate");
         realm.ProcessTurn(); 
+		//GetNewEvents();
 		realm.SetCitiesCards (cityPanels);
         StartCoroutine(DrawCards());
-        OpenEvents();
-        GetNewEvents();
+		OpenEvents();
     }
 
     public void OpenEvents()
@@ -154,10 +164,17 @@ public class GameManager : MonoBehaviour
         realm.nextTurnEvents = new List<Event>();
     }
 
-    void GetNewEvents()
+    public void GetNewEvents()
     {
-        realm.nextTurnEvents.Add(GetComponent<EventCreator>().GetEvent());
-    }
+		// dont add event if there is already one
+		if (realm.nextTurnEvents.Count == 0)
+		{
+			realm.nextTurnEvents.Add (GetComponent<EventCreator> ().GetEvent ());
+		} else
+		{
+			// there is already an  event going on
+		}
+	}
 
     IEnumerator DrawCards()
     {

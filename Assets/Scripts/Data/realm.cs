@@ -303,7 +303,8 @@ public class Realm
         }
         catch 
 		{
-			Debug.Log("Please check why we do try catch here"); //because we are not sure if the character panel is open, and we don't want to do an if statement :)
+			// cant add
+			//Debug.Log("Please check why we do try catch here"); //because we are not sure if the character panel is open, and we don't want to do an if statement :)
 		}
         //turns
         GameObject.Find("Turn").transform.Find("Text").GetComponent<Text>().text = turnCounter.ToString();
@@ -375,11 +376,21 @@ public class Realm
     {
         foreach (string function in thisTurnEventFunctions)
         {
-            System.Type thisType = this.GetType();
-            MethodInfo theMethod = thisType.GetMethod(function);
-            theMethod.Invoke(this, new object[] { });
+            try
+            {
+                System.Type thisType = this.GetType();
+                MethodInfo theMethod = thisType.GetMethod(function);
+                theMethod.Invoke(this, new object[] { });
+            }
+            catch
+            {
+                Debug.Log(function + " does not exist!");
+            }
         }
         thisTurnEventFunctions = new List<string>();
+	
+		GameObject.Find ("GameManager").GetComponent<GameManager> ().GetNewEvents ();
+
     }
 
     private bool first = true;
@@ -501,34 +512,51 @@ public class Realm
 	{
 		// looks on the name of the panel, returns the city in the index according to the name of the panel.
 		// the 48 is because of ascii(ithink)
+		// some hacky code -- ask Omri
 		return this.cities [obj.name [obj.name.Length - 1] - '0' - 1];
 	}
 	/*
 		Action that imprison a character in jail.
 	*/
+
+	private void removeFromCourt(card c)
+	{
+		card[] court = GameObject.Find ("GameManager").GetComponent<GameManager> ().updateCourt ();
+		for (int i = 0; i < court.Length; i++)
+		{
+			if (court [i] == c)
+			{
+				Debug.Log ("REMOVED");
+				court [i] = null;
+			}
+		}
+	}
+
     public void Imprison(GameObject obj)
     {
-        // Set the char location to -1
-        obj.GetComponent<characterPanel>().card.Transfer(GameObject.Find("Prison").transform.Find("DropZone"));
-        if (obj.active)
+        // Move character to prison dropzone, and set it to be inactive
+		card prisoner = obj.GetComponent<characterPanel>().card;
+		removeFromCourt (prisoner);
+		prisoner.Transfer(GameObject.Find("Prison").transform.Find("DropZone"));
+
+
+		// need to remove from court if in court
+
+		if (obj.activeSelf)
             obj.SetActive(false);
     }
 	/*
 		Action that kills a character.
+		destroy both the card object, and the card panel.
 	*/
 	public void Kill(GameObject obj)
 	{
+		// card object to destroy
 		GameObject toDestroy;
-		try{
-			toDestroy = obj.GetComponent<characterPanel> ().card.gameObject;
-		}
-		catch
-		{
-			toDestroy = obj;
-		}
-
-		obj.GetComponent<card> ().Transfer (GameObject.Find ("Prison").transform.Find ("DropZone"));
-		
+		toDestroy = obj.GetComponent<characterPanel> ().card.gameObject;
+		/// NULL FUCKING REFERENCE WHEN YOU TRY TO KILL SOMEONE --FIXED--
+		//obj.GetComponent<characterPanel> ().card.Transfer (GameObject.Find ("Map").transform.Find("Prison").transform.Find("DropZone").transform);
+		obj.GetComponent<characterPanel>().card.ExitCurrent();
 		GameObject.Destroy (obj);
 		GameObject.Destroy (toDestroy);
 
@@ -586,7 +614,8 @@ public class Realm
 	*/
 	public void AttackCity(GameObject obj)
 	{
-		Debug.Log ("THE CITY IS UNDER ATTAC!");
+		Debug.Log("Attacked: " + GetTargetCity (obj).name);
+		AttackACity (GetTargetCity (obj));
 	}
 	/*
 		Call to arms people in the city, increasing the levy tax, 
@@ -671,26 +700,27 @@ public class Realm
 		List<int> targets = new List<int> ();
 		for (int i = 0; i < 3; i++)
 		{
-			try //0
-			{
-				// just some random function to check if it is alive
-				court [i].GetType ();
-				targets.Add(i);
+			if (court [i])
+			{	
+				targets.Add (i);
 			} 
-			catch
+			else
 			{
-				// rip
+				// court member is rip
 			}
+				
 		}
 		// if anyone in the court alive, slay!
 		if (targets.Count > 0)
 		{
-			Kill (court [targets [Random.Range (0, targets.Count)]].gameObject);
+				int targetIndex = targets[Random.Range (0, targets.Count)];
+				Kill (court [targetIndex].charPanel.gameObject);
 		}
 			else 
 		{
-			//no slay
+			//no one to 'accidently' kill
 		}
+
 		castlePanel.gameObject.SetActive (startState);
 	}
 	public void AccidentProbablyjustanaccident()
@@ -760,16 +790,19 @@ public class Realm
 		gold /= 2;
 		bool state = castlePanel.gameObject.activeSelf;
 		castlePanel.gameObject.SetActive (true);
-		try{
-			card[] court = GameObject.Find("GameManager").GetComponent<GameManager>().court;
-			Kill (court[1].gameObject);
+		// update the court variable of the game manager. ( get newest court)
+		GameObject.Find ("GameManager").GetComponent<GameManager> ().updateCourt ();
+		card[] court = GameObject.Find("GameManager").GetComponent<GameManager>().court;
+		// check if there is a coin master
+		if (court[1])
+		{	
+			Kill (court[1].charPanel.gameObject);
 		}
-		catch
+		else
 		{
-			Debug.Log ("no coin master");
+			// no coin master
 		}
-
-			castlePanel.gameObject.SetActive (state);
+		castlePanel.gameObject.SetActive (state);
 	}
 
 	public void FeastLetsenjoythemealatleast()
@@ -788,12 +821,11 @@ public class Realm
 		this.gold = (int)(0.8f * this.gold);
 	}
 
-
 	// rebeliion
 	public void RebellionRumorsDamnTraitors()
 	{
+		Debug.Log ("Added rebellion");
 		nextTurnEvents.Add(GameObject.Find("GameManager").GetComponent<EventCreator>().events[1]["RebellionRumorsDamnTraitors"]);
-		GameObject.Find ("GameManager").GetComponent<EventCreator> ().events [0].Remove ("RebellionRumors");
 	}
 	public void RebellionRumorsButImGood()
 	{
@@ -811,8 +843,15 @@ public class Realm
 	}
 	public void RebellionRumorsExecuteHim()
 	{
-		Kill (GameObject.Find ("GameManager").GetComponent<GameManager> ().court [0].gameObject);
-		nextTurnEvents.Add(GameObject.Find("GameManager").GetComponent<EventCreator>().events[3]["RebellionRumorsExecuteHim"]);
+		card[] court = GameObject.Find ("GameManager").GetComponent<GameManager> ().updateCourt ();
+		if (court [0])
+		{
+			Kill (court [0].charPanel.gameObject);
+		} else
+		{
+			// no general to kill
+		}
+        nextTurnEvents.Add(GameObject.Find("GameManager").GetComponent<EventCreator>().events[3]["RebellionRumorsExecuteHim"]);
 	}
 	public void RebellionRumorsSpareHim()
 	{
@@ -892,15 +931,17 @@ public class Realm
 	public void AttackACity(City target)
 	{
 		// Obvioulsy this try catch block should not be here, but it is a jam.
-		try
-		{
-			peopleData general = GameObject.Find ("GeneralDropZone").transform.GetChild (0).GetComponent<CharacterCard> ().data;
+	
+		card generalCard = GameObject.Find ("GameManager").GetComponent<GameManager> ().updateCourt () [0];
 
+		if (generalCard)
+		{
+			peopleData general = generalCard.character.data;
 			if ((general.getStats(true).talent) * (0.01f) * loyalArmy >= target.army)
 			{
 				target.loyalty = 100;
-				target.army = 0;
 				loyalArmy -= target.army;
+				target.army = 0;
 			}
 			// failed attack
 			else
@@ -909,9 +950,11 @@ public class Realm
 				loyalArmy -= target.army;
 				target.army = target.army - (int) (loyalArmy * 0.01f * general.getStats(true).talent ) ;
 			}
+			loyalArmy = Mathf.Max (0, loyalArmy);
 		}
-		catch
+		else
 		{
+			// should actually not allow to place the card
 			Debug.Log("there is no general you dumb");
 		}
 	}

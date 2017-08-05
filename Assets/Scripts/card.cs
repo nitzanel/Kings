@@ -18,8 +18,22 @@ public class card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     public ActionCard action;
     public CharacterCard character;
-
+	public characterPanel charPanel;
     public drop.DropType type;
+
+
+	bool alreadySetCharPanel =false;
+	public void setCharPanel(characterPanel thePanel)
+	{
+		if (alreadySetCharPanel)
+		{
+			Debug.Log ("THIS METHOD SHOULD ONLY BE CALLED ON CARD CREATION");
+			return;
+		}
+		alreadySetCharPanel = true;
+		this.charPanel = thePanel;
+
+	}
 
     void Start()
     {
@@ -134,17 +148,32 @@ public class card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         panel.parent = GameObject.Find("Canvas").transform;
         panel.offsetMax = new Vector2(0, 0);
         panel.offsetMin = new Vector2(0, 0);
-        
+		charPanel = panel.GetComponent<characterPanel>();
         if (character)
 		    panel.GetComponent<characterPanel> ().card = this;
     }
 
+	public void ExitCurrent()
+	{
+		try{
+		transform.parent.GetComponent<drop> ().CardExit (this);
+	
+		}
+		catch{
+			Debug.Log ("ExitCurrent Failed");
+		}
+	
+	}
     public void Transfer(Transform parent)
     {
-        transform.parent.GetComponent<drop>().CardExit(this);
-        transform.SetParent(parent);
-        if (transform.parent.GetComponent<drop>())
-            transform.parent.GetComponent<drop>().CardEnter(this);
+        try
+        {
+            transform.parent.GetComponent<drop>().CardExit(this);
+            transform.SetParent(parent);
+            if (transform.parent.GetComponent<drop>())
+                transform.parent.GetComponent<drop>().CardEnter(this);
+        }
+        catch { Debug.Log("Transfer cought"); }
     }
 
     IEnumerator LerpScale(float time, bool big)
