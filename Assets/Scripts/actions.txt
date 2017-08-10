@@ -1,12 +1,13 @@
-﻿Kill|Kills target, reduces court loyalty.|people|20|Kill|1
-Imprison|Imprison target, reduces court loyalty.|people|10|Imprison|1
-Spy|Spy on target, may be cought.|people|10|Spy|2
-Raise Taxes|Raises the taxes in a city.|city|5|RaiseTaxes|3
-Bribe|Bribes a person. Increases loyalty.|people|3|Bribe|5
-Increase Charisma|Increases targets charisma.|people|5|IncreaseCharisma|3
-Increase Talent|Inceases targets talent.|people|5|IncreaseTalent|3
-Attack City|Attacks a city.|city|8|AttackCity|1
-Call to Arms|Raises Army from city.|city|5|CallToArms|1
-Recruit Army|Increase army in city.|city|5|RecruitArmy|1
-Increase City Loyalty|Increases loyalty in city.|city|5|IncreaseCityLoyalty|5
-Increase City Population|Increases the population in a city.|city|5|IncreaseCityPopulation|3
+﻿Bribe|Bribes a person. Increases loyalty. (may fail)|people|3|Bribe|yes|Requires 200 gold.|5
+Spy|Spy on target, may be cought.|people|10|Spy|yes|Requires Spy master.|2
+Kill|Kills target, reduces court loyalty.|people|20|Kill|no||1
+Imprison|Imprison target, reduces court loyalty.|people|10|Imprison|no||1
+Raise Taxes|Raises the taxes in a city.|city|5|RaiseTaxes|yes|Requires Coin Master.|3
+Increase Charisma|Increases targets charisma.|people|5|IncreaseCharisma|no|3
+Increase Talent|Inceases targets talent.|people|5|IncreaseTalent|no||3
+Attack City|Attacks a city.|city|8|AttackCity|yes|Requires General And Army.|1
+Call to Arms|Raises Army from city.|city|5|CallToArms|yes|Requires General.|1
+Recruit Army|Increase army in city.|city|5|RecruitArmy|yes|Requires General.|1
+Increase City Loyalty|Increases loyalty in city.|city|5|IncreaseCityLoyalty|no||5
+Increase City Population|Increases the population in a city.|city|5|IncreaseCityPopulation|no||3
+Replace Court|Kills Everyone in the court.|castle|1|ReplaceCourt|yes|Requires a court member.|10
