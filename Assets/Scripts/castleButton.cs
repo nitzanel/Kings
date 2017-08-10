@@ -13,18 +13,24 @@ public class castleButton : MonoBehaviour
     }
 
     public void OpenPanel()
-    {
-        if (!panel.gameObject.active)
-        {
-            //before turning the panel on, turn all other panels off
-            foreach (GameObject o in GameObject.FindGameObjectsWithTag("Panel"))
-            {
-                o.SetActive(false);
-            }
-
-            panel.gameObject.SetActive(true);
-        }
-        else
-            panel.gameObject.SetActive(false);
-    }
+	{
+		if (!panel.gameObject.activeSelf)
+		{
+			//before turning the panel on, turn all other panels off
+			foreach (GameObject o in GameObject.FindGameObjectsWithTag("Panel"))
+			{
+				o.SetActive (false);
+			}
+			// tell to get targets castle
+			panel.gameObject.SetActive (true);
+			Helper.UpdateCardsTargetMatch (actionData.Targets.Castle);
+			Helper.UpdateCardsCondition (panel.gameObject);
+		} 
+		else
+		{
+			Helper.UpdateCardsTargetMatch (actionData.Targets.City);
+			Helper.UpdateCardsCondition (null);
+			panel.gameObject.SetActive (false);
+		}
+	}
 }

@@ -42,12 +42,33 @@ public class drop : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
         card card; //temporary variable, not really important
         //get the component. if it doesn't exist or if the drop zone is full, return
         card = data.pointerDrag.GetComponent<card>();
+		if (transform.name == "CardPack")
+		{
+			// discard card
+			GameObject.DestroyImmediate(card.gameObject);
+		}
+		// WTF
         if (!card || transform.childCount + 1 > max || card.type != type ||
             (card.type == DropType.Action && (gm.realm.actionPoints < card.action.data.cost ||
             (targetType != actionData.Targets.All && card.action.data.target != actionData.Targets.All && card.action.data.target != targetType)))) return;
-        //perform the drop
+
+
+		// test condition if it is an action card
+		if (gameObject.name != "PickUpZone" && card.type == DropType.Action) 
+		{
+			if (!card.action.CheckCondition (gameObject)) 
+			{
+				
+				// condition not met
+				return;
+			}
+
+			// condition met, drop the action card
+		}
+		//perform the drop
         card.originalParent = transform;
         CardEnter(card);
+		Helper.GetRealm ().UpdateUI ();
     }
 
     /*
@@ -61,11 +82,17 @@ public class drop : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
             // remove character from city
             Realm realm = gm.realm;
             gm.changed = true;
-            realm.cities[card.character.data.location].RemoveCharacter(card.character.data);
+            realm.cities[card.character.data.location].RemoveCharacter(card);
             card.character.data.location = 0;
+			gm.realm.UpdateUI ();
         }
         if (type == DropType.Action && transform.name != "PickUpZone")
         {
+			if (card.action.data.name == "Bribe") 
+			{
+				Helper.GetRealm ().gold += 200;
+			}
+
             cur--;
             // follow action points
             gm.realm.actionPoints += card.action.data.cost;
@@ -82,15 +109,21 @@ public class drop : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
             gm.changed = true;
             string parentName = transform.parent.name;
             int cityIndex = (int)(parentName[parentName.Length - 1]) - 48;
-            Realm realm = gm.realm;
+			Realm realm = Helper.GetRealm ();
             card.character.data.location = cityIndex - 1;
-            realm.cities[cityIndex - 1].AddCharacter(card.character.data);
+            realm.cities[cityIndex - 1].AddCharacter(card);
+			Helper.RemoveWarningsFromCity (realm.cities [cityIndex - 1], WarningType.NoMayor);
         }
         if (type == DropType.Action && transform.name != "PickUpZone" && cur < max)
         {
+			if (card.action.data.name == "Bribe")
+			{
+				Helper.GetRealm ().gold -= 200;
+			}
+
             cur++;
             // follow action points
-            gm.realm.actionPoints -= card.action.data.cost;
+			Helper.GetRealm().actionPoints -= card.action.data.cost;
             gm.realm.UpdateUI();
         }
     }

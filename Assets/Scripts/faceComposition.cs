@@ -60,26 +60,20 @@ public class faceComposition : MonoBehaviour {
 		case "Face":
 			index = Random.Range (0, heads.Length);
 			return heads [index];
-			break;
 		case "Ear":
 			index = Random.Range (0, ears.Length);
 			return ears [index];
-			break;
 		case "Nose":
 			index = Random.Range (0, noses.Length);
 			return noses [index];
-			break;
 		case "Mouth":
 			index = Random.Range (0, mouths.Length);
 			return mouths [index];
-			break;
 		case "Eye":
 			index = Random.Range (0, eyes.Length);
 			return eyes [index];
-			break;
 		default:
 			return new Sprite();
-			break;
 		}
 	}
 

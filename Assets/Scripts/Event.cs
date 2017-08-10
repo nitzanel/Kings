@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Event : MonoBehaviour
+public class Event 
 {
     public string title;
     public string description;
@@ -10,6 +10,7 @@ public class Event : MonoBehaviour
     public int index;
     public string shortName;
     public List<string> functions;
+    public card originator;
 
     public Event() { }
 
@@ -21,6 +22,7 @@ public class Event : MonoBehaviour
         index = Index;
         shortName = ShortName;
         functions = Functions;
+        originator = null;
     }
 
     public Event(Event copy)
@@ -31,15 +33,6 @@ public class Event : MonoBehaviour
         index = copy.index;
         shortName = copy.shortName;
         functions = copy.functions;
+        originator = copy.originator;
     }
-
-	void Start ()
-    {
-		
-	}
-	
-	void Update ()
-    {
-		
-	}
 }

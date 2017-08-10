@@ -6,7 +6,10 @@ public class XButton : MonoBehaviour
 {
     public void X()
     {
-        //close whatever you are in
+		// find what you were
+		Helper.UpdateCardsTargetMatch(actionData.Targets.None);
+		Helper.UpdateCardsCondition (null);
+		//close whatever you are in
         transform.parent.gameObject.SetActive(false);
     }
 }
