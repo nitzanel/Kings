@@ -7,8 +7,6 @@ public enum Desires {HelpThePoeple, KeepThePeace, DestroyCorruption, LoyaltyToTh
      GetRich}
 public enum NiceDesires { HelpThePoeple, KeepThePeace, DestroyCorruption, LoyaltyToTheCrown, NothingAtAll }
 
-public enum PeopleStatus { Mayor, InJail, General, SpyMaster, MaterOfCoin, InHand }
-
 public struct barStats
 {
     public int loyalty;
@@ -26,7 +24,6 @@ public class peopleData
     // consts
     const int MaxNumOfTraits = 3;
 
-    public int timeFromLastEvent = 0;
 	public int location;
     public string name;
 
@@ -83,6 +80,8 @@ public class peopleData
 			}
 		}
 	}
+
+
 	public void ModifyLoyalty(int value)
 	{
 		if (value > 0)
@@ -130,13 +129,6 @@ public class peopleData
         setupStats(rand);
         // You still dont know the real desire
         secretRevealed = false;
-    }
-    public void revealTraits()
-    {
-        foreach(trait t in traits)
-        {
-            t.isRevealed = true;
-        }
     }
     public void setupTraitList(System.Random rand)
     {
@@ -429,29 +421,5 @@ public class peopleData
         loyalty += change.loyalty;
         charisma += change.charisma;
         talent += change.talent;
-    }
-    public Event createEvent(PeopleStatus myStatus)
-    {
-        switch (myStatus)
-        {
-            case PeopleStatus.Mayor:
-                // Mayor events
-                break;
-            case PeopleStatus.InJail:
-                // injail..
-                break;
-            case PeopleStatus.General:
-                break;
-            case PeopleStatus.SpyMaster:
-                break;
-            case PeopleStatus.MaterOfCoin:
-                break;
-            case PeopleStatus.InHand:
-                break;
-            default:
-                // WutFAce
-                break;
-        }
-        return null;
     }
 }

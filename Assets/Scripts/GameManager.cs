@@ -108,7 +108,6 @@ public class GameManager : MonoBehaviour
         masterOfCoin = Instantiate(cardPrefab, GameObject.Find("Canvas").transform);
 		spyMaster = Instantiate(cardPrefab, GameObject.Find("Canvas").transform);
 
-		SendGoodLuck ();
         yield return new WaitForSeconds(0.2f);
         castlePanel.transform.Find("GeneralDropZone").GetComponent<drop>().CardEnter(general.GetComponent<card>());
         general.transform.SetParent(castlePanel.transform.Find("GeneralDropZone"));
@@ -118,19 +117,15 @@ public class GameManager : MonoBehaviour
         spyMaster.transform.SetParent(castlePanel.transform.Find("SpyMasterDropZone"));
 
 		updateCourt ();
+
         StartCoroutine(DrawCards());
         realm.UpdateUI();
-	}
-
-	private void SendGoodLuck()
-	{
-		Helper.AddMessage ("Good luck", "Have fun");
 	}
 
 	// updates the court and returns it
 	public card[] updateCourt()
 	{
-
+		Debug.Log ("updating court");
 		try{court [0] = castlePanel.transform.Find("GeneralDropZone").GetComponentInChildren<card> ();} 
 		catch{court [0] = null;}
 		try{court [1] = castlePanel.transform.Find("MasterOfCoinDropZone").GetComponentInChildren<card>();}
@@ -139,6 +134,7 @@ public class GameManager : MonoBehaviour
 		catch{
 			court [2] = null;
 		}
+		Debug.Log ("Finished updating court");
 
 		return court;
 	}
@@ -175,7 +171,7 @@ public class GameManager : MonoBehaviour
 		// dont add event if there is already one
 		if (realm.nextTurnEvents.Count == 0)
 		{
-			Helper.GetNextTurnEvents().Add (GetComponent<EventCreator> ().GetEvent ());
+			realm.nextTurnEvents.Add (GetComponent<EventCreator> ().GetEvent ());
 		} else
 		{
 			// there is already an  event going on
@@ -195,9 +191,6 @@ public class GameManager : MonoBehaviour
             actionCard.GetComponent<Animation>().enabled = false;
             actionCard.data = data;
             actionCard.UpdateCard();
-			Helper.UpdateCanPlayCards (Helper.GetRealm().actionPoints);
-			Helper.UpdateCardsTargetMatch (actionData.Targets.None);
-			Helper.UpdateCardsCondition (null);
-		}
+        }
     }
 }

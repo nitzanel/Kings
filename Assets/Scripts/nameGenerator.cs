@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// this shouldnt be Monobehaviour, but some changes are required.
 public class nameGenerator : MonoBehaviour
 {
     char[] consonant = { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z' };
@@ -12,7 +11,7 @@ public class nameGenerator : MonoBehaviour
     const int ConLen = 21;
     const int VowLen = 5;
 
-    void Awake()
+    void Awake ()
     {
         GetComponent<Text>().text = GetName() + " " + GetName();
     }

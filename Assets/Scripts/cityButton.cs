@@ -16,25 +16,19 @@ public class cityButton : MonoBehaviour
     }
 
     public void OpenPanel()
-	{
-		if (!panel.gameObject.activeSelf) //if the panel is not active, turn it on
-		{
+    {
+        if (!panel.gameObject.active) //if the panel is not active, turn it on
+        {
 			GameManager gm = gameManager.GetComponent<GameManager> ();
 			gm.changed = true;
-			//before turning the panel on, turn all other panels off
+            //before turning the panel on, turn all other panels off
 			foreach (GameObject o in GameObject.FindGameObjectsWithTag("Panel"))
-			{
-				o.SetActive (false);
-			}
-			panel.gameObject.SetActive (true);
-			Helper.UpdateCardsTargetMatch (actionData.Targets.City);
-			Helper.UpdateCardsCondition (panel.gameObject);
-		} 
-		else //turn the panel off
-		{
-			Helper.UpdateCardsTargetMatch (actionData.Targets.None);
-			Helper.UpdateCardsCondition (null);
-			panel.gameObject.SetActive (false);
-		}
-	}
+            {
+                o.SetActive(false);
+            }
+            panel.gameObject.SetActive(true);
+        }
+        else //turn the panel off
+            panel.gameObject.SetActive(false);
+    }
 }

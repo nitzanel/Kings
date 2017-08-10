@@ -8,10 +8,8 @@ public class tooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     bool mouseOn = false;
     public string message = "";
-    // panelprefab to instantiate
-	public GameObject panelPrefab;
-	// panel holding the text
-    public GameObject panel;
+    public GameObject panelPrefab;
+    GameObject panel;
 
     void Start()
     {
@@ -24,7 +22,7 @@ public class tooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (mouseOn)
         {
-            if (!panel.gameObject.activeSelf)
+            if (!panel.gameObject.active)
                 panel.gameObject.SetActive(true);
             if (Input.mousePosition.x < Screen.width / 2 && Input.mousePosition.y < Screen.height / 2) //bottom left
                 panel.GetComponent<RectTransform>().pivot = new Vector2(0, 0);
