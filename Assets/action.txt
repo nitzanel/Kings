@@ -1,4 +1,4 @@
-name|description|target|cost|function|condition(yes or no)|tooltip
+name|description|target|cost|function
 (target = people/city/castle/event/all)
 
 Actions example:

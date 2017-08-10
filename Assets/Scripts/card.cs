@@ -127,24 +127,18 @@ public class card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     void OpenPanel()
     {
-        if (!panel.gameObject.activeSelf)
+        if (!panel.gameObject.active)
         {
             //close all open panels
             foreach (GameObject o in GameObject.FindGameObjectsWithTag("Panel"))
             {
                 o.SetActive(false);
             }
-			Helper.UpdateCardsTargetMatch (actionData.Targets.People);
             panel.gameObject.SetActive(true);
-			Helper.UpdateCardsCondition (panel.gameObject);
         }
         else
-		{
             panel.gameObject.SetActive(false);
-			Helper.UpdateCardsTargetMatch (actionData.Targets.None);
-			Helper.UpdateCardsCondition (null);
-		}
-	}
+    }
 
     void CreatePanel()
     {
@@ -166,7 +160,7 @@ public class card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 	
 		}
 		catch{
-			Debug.LogError ("ExitCurrent Failed");
+			Debug.Log ("ExitCurrent Failed");
 		}
 	
 	}
@@ -179,8 +173,7 @@ public class card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
             if (transform.parent.GetComponent<drop>())
                 transform.parent.GetComponent<drop>().CardEnter(this);
         }
-		// the log is quite stupid --TODO-- fix
-		catch { Debug.LogError("Transfer from: " + transform.parent.name + " To: " + parent.name + "  Failed."); }
+        catch { Debug.Log("Transfer cought"); }
     }
 
     IEnumerator LerpScale(float time, bool big)

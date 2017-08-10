@@ -9,7 +9,7 @@ Rebellion Reaction|We know, oh you Majesty. Would you like the spy master to fin
 Rebellion Reaction|Would you like the spy master to find the traitors? |RebellionRumorsDamnTraitors|1|RebellionRumors|Yes|No
 Rebellion Traitors|Your Spy Master have found that your General plans to lead a rebellion againts you! what do you want to do? |RebellionRumorsYes|2|RebellionRumors|Execute Him|Spare Him
 Rebellion Traitors|Ill take it as a yes. meanwhile your Spy Master have found that your General plans to lead a rebellion againts you! what do you want to do? |RebellionRumorsNo|2|RebellionRumors|Execute Him|Spare Him
-Rebellion Traitors|You Should execute him to teach him a valuable lesson! |RebellionRumorsSpareHim|3|RebellionRumors|Execute Him
+Rebellion Traitors|You Should execute him to teach him a valuable lesson! |RebellionRumorsSpareHim|3|RebellionRumors|ExectuteHim
 Rebellion Ended|With the death of your General, the traitors are too scared to act againts you. You have defeated the Rebellion! Also, dont forget to get a new General with all the money you now have!|RebellionRumorsExecuteHim|3|RebellionRumors|Lets Party
 #
 #Mysterious Assassin|A man with no face comes to your room in the middle of the night.
@@ -35,14 +35,14 @@ Ceremony of the Stars|Its this time of the year again... Everyone loses their mi
 #
 # created by action #
 #
-#Revealed Desire|The spy successfully discovered the targer secret desire!|RevDesire|1|RevDesire|Great Job
+Revealed Desire|The spy successfully discovered the targer secret desire!|RevDesire|1|RevDesire|Great Job
 #
-#Revealed Everything!|The spy successfully discovered everything we need to know about the target!|RevAll|1|RevAll|Amazing
+Revealed Everything!|The spy successfully discovered everything we need to know about the target!|RevAll|1|RevAll|Amazing
 #
-#Revealed Traits|The spy successfully discovered all the traits of the target!|RevTraits|1|RevTraits|Nice
+Revealed Traits|The spy successfully discovered all the traits of the target!|RevTraits|1|RevTraits|Nice
 #
-#Revealed Trait|The spy could only reveal one trait of the target unfortunatly...|RevTrait|1|RevTrait|Ok
+Revealed Treat|The spy could only reveal one trait of the target unfortunatly...|RevTrait|1|RevTrait|Ok
 #
-#Revealed Nothing|Unfortunatly Your spy could not find anything, or did he?|RevNone|1|RevNone|Bad luck|Spy the Spy Master
+Revealed Nothing|Unfortunatly Your spy could not find anything, or did he?|RevNone|1|RevNone|Bad luck|Spy the Spy Master
 #
-#Reveal Failed|Your spy was caught! this will greatly lower the court loyalty!|RevFail|1|RevFail|Bad luck|Check the spy master
+Reveal Failed|Your spy was caught! this will greatly lower the court loyalty!|RevFail|1|RevFail|Bad luck|Check the spy master

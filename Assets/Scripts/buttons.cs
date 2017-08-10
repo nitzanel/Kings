@@ -6,14 +6,12 @@ public class buttons : MonoBehaviour
 {
     public void NewGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("main");
-        //Application.LoadLevel("main");
+        Application.LoadLevel("main");
     }
 
     public void Menu()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("menu");
-        //Application.LoadLevel("menu");
+        Application.LoadLevel("menu");
     }
 
     public void Quit()

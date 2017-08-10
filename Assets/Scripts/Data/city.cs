@@ -28,11 +28,11 @@ public class City
 	public string lastTurnReport="";
 
 	// poeple in the city
-	public List<card> cards;
+	public List<peopleData> people;
 
 	public City (string name, int population,int growth=5, int millateristic=30)
 	{
-		cards = new List<card> ();
+		people = new List<peopleData> ();
 		this.name = name;
 		this.population = population;
 		this.loyalty = 100;
@@ -41,7 +41,7 @@ public class City
         this.army = 10;
 	}
 
-    public static Result rollResult(int loyalty, int stat, int minChance, int maxChance)
+    public Result rollResult(int loyalty, int stat, int minChance, int maxChance)
     {
         if (Random.Range(minChance, maxChance) < loyalty)
         {
@@ -94,15 +94,14 @@ public class City
         }
     }
 
-
-    public void AddCharacter(card character) 
+    public void AddCharacter(peopleData character) 
 	{
-		cards.Add(character);
+		people.Add(character);
 	}
 
-	public void RemoveCharacter(card character)
+	public void RemoveCharacter(peopleData character)
 	{
-		cards.Remove (character);
+		people.Remove (character);
 	}
 
 	// update city stats every turn
@@ -131,10 +130,10 @@ public class City
         UpdateReportText("Loyalty: ");
 		loyalty -= MinChange;
 		int mayorInfluence = 0;
-		if (cards.Count > 0)
+		if (people.Count > 0)
 		{
-			card mayor = cards [0];
-			barStats mayorStats = mayor.character.data.getStats (true);
+			peopleData mayor = people [0];
+			barStats mayorStats = mayor.getStats (true);
 			mayorInfluence = (int)((mayorStats.charisma / 100f) * (mayorStats.talent / 100.0f) * (mayorStats.loyalty - 50f) / 10.0f);
 			loyalty += mayorInfluence;
 		}
@@ -156,9 +155,9 @@ public class City
         UpdateReportText("Population: ");
         int result = 0;
         int change = (int)(0.01f * currentGrowth * this.population);
-        if (cards.Count != 0)
+        if (people.Count != 0)
         {
-            barStats stats = cards[0].character.data.getStats(true);
+            barStats stats = people[0].getStats(true);
             switch (rollResult(stats.loyalty, stats.talent, MinLoayaltyPop, MaxLoayaltyPop))
             {
                 case Result.MajorSabotage:
@@ -217,9 +216,9 @@ public class City
         UpdateReportText("Army: ");
         int change = (int)(0.01f * currentMillateristic * this.population);
         int result = 0;
-        if (cards.Count != 0)
+        if (people.Count != 0)
         {
-            barStats stats = cards[0].character.data.getStats(true);
+            barStats stats = people[0].getStats(true);
             switch (rollResult(100, stats.talent, MinLoayaltyArmy, MaxLoayaltyArmy))
             {
                 case Result.MajorSabotage:
